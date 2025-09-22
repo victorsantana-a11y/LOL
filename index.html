@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriApp | Tu guía de nutrición</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .rounded-full-lg {
+            border-radius: 1.5rem;
+        }
+        .btn-primary {
+            background-color: #16a34a;
+            color: white;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            box-shadow: 0 4px 14px 0 rgba(22, 163, 74, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #15803d;
+            box-shadow: 0 6px 20px 0 rgba(22, 163, 74, 0.5);
+            transform: translateY(-2px);
+        }
+        .card {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .comments-list::-webkit-scrollbar { width: 8px; }
+        .comments-list::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .comments-list::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+        .comments-list::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Welcome Page -->
+    <div id="welcome-page" class="min-h-screen flex flex-col justify-center items-center py-10 px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-green-700 leading-tight">NutriAPP</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">Transforma tu bienestar con planes de nutrición personalizados, seguimiento de alimentos y una comunidad que te apoya.</p>
+            <div class="mt-8 flex flex-col justify-center items-center space-y-4 w-full max-w-xs mx-auto">
+                <button id="get-started-btn" class="bg-white text-green-600 border-2 border-green-600 hover:bg-green-50 hover:text-green-700 hover:border-green-700 px-6 py-3 rounded-full font-semibold transition duration-300 w-full">Registrarse</button>
+                <button id="login-btn" class="btn-primary w-full">Iniciar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login/Register Page -->
+    <div id="login-register-page" class="hidden min-h-screen flex flex-col items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
+        <button id="back-to-welcome-btn" class="absolute top-6 left-6 text-gray-500 hover:text-gray-700 flex items-center"><svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Volver</button>
+        <div class="w-full max-w-md">
+             <div class="card p-8">
+                <h2 class="text-3xl font-bold text-green-800 mb-6 text-center">Acceso a NutriApp</h2>
+                <form id="login-form">
+                    <div class="mb-4"><label for="email-input" class="block text-sm font-medium text-gray-600 mb-1">Correo Electrónico</label><input id="email-input" type="email" placeholder="tu@correo.com" class="w-full px-4 py-3 rounded-full-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500" required></div>
+                    <div class="mb-6"><label for="password-input" class="block text-sm font-medium text-gray-600 mb-1">Contraseña</label><input id="password-input" type="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-full-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500" required></div>
+                    <button type="submit" class="btn-primary w-full">Ingresar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Page -->
+    <div id="main-app-page" class="hidden min-h-screen flex flex-col py-10 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-5xl mx-auto flex-1">
+            
+            <!-- NEW: Search bar on main page -->
+            <div class="mb-8 text-center">
+                <h3 class="text-xl font-semibold text-gray-700 mb-3">¿Qué quieres comer hoy?</h3>
+                <form id="main-page-search-form" class="relative w-full max-w-xl mx-auto">
+                    <input id="main-page-search-input" type="text" placeholder="Busca alimentos o platos chilenos..." class="w-full pl-12 pr-4 py-3 rounded-full-lg border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-base shadow-sm">
+                    <button type="submit" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400 hover:text-green-600 transition-colors">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                </form>
+            </div>
+
+            <header class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-green-800">Tu Resumen Diario</h2>
+                <div class="flex items-center space-x-4 mt-4 sm:mt-0">
+                    <button id="food-search-btn-header" class="text-green-700 hover:text-green-900 font-medium">Buscar</button>
+                    <button id="plans-btn-header" class="text-green-700 hover:text-green-900 font-medium">Planes</button>
+                    <button id="community-btn-header" class="text-green-700 hover:text-green-900 font-medium">Comunidad</button>
+                    <button id="logout-btn" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-full text-sm font-semibold hover:bg-gray-300">Cerrar sesión</button>
+                </div>
+            </header>
+            <main class="w-full">
+                <div id="daily-suggestions-container" class="space-y-8">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Food Search Page -->
+    <div id="food-search-page" class="hidden min-h-screen flex flex-col py-10 px-4 sm:px-6 lg:px-8">
+        <button class="back-to-main self-start text-gray-500 hover:text-gray-700 mb-6 flex items-center"><svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Volver</button>
+        <div class="max-w-xl mx-auto w-full">
+            <h2 class="text-3xl font-bold text-green-800 mb-4 text-center">Búsqueda de Alimentos</h2>
+            <div class="relative w-full"><input id="food-search-input" type="text" placeholder="Ej: Manzana, Pollo, Pastel de choclo..." class="w-full pl-10 pr-4 py-3 rounded-full-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"><svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
+            <div id="search-results" class="mt-6 grid grid-cols-1 gap-4"></div>
+        </div>
+    </div>
+    
+    <!-- Plan Selection Page -->
+    <div id="plan-selection-page" class="hidden min-h-screen flex flex-col py-10 px-4 sm:px-6 lg:px-8">
+        <button class="back-to-main self-start text-gray-500 hover:text-gray-700 mb-6 flex items-center"><svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Volver</button>
+        <div class="max-w-2xl mx-auto w-full text-center">
+            <h2 class="text-3xl font-bold text-green-800 mb-4">Elige tu Plan</h2>
+            <p class="text-gray-600 mb-8">Selecciona una opción para comenzar a planificar tu nutrición.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div id="viability-check-card" class="card p-6 flex flex-col items-center cursor-pointer"><svg class="w-12 h-12 text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.322a4.99 4.99 0 01-1.414-1.414L11.5 1.5 2 11l10 10 9.5-9.5a4.99 4.99 0 01-1.414-1.414z"></path></svg><h3 class="text-lg font-bold text-green-800">Verificar Viabilidad</h3><p class="text-sm text-gray-500 mt-1">Evalúa si un alimento es adecuado para ti.</p></div>
+                <div id="create-plan-card" class="card p-6 flex flex-col items-center cursor-pointer"><svg class="w-12 h-12 text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg><h3 class="text-lg font-bold text-green-800">Crear Plan</h3><p class="text-sm text-gray-500 mt-1">Diseña o elige un plan de comidas.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Viability Check Page -->
+    <div id="viability-check-page" class="hidden min-h-screen flex flex-col py-10 px-4 sm:px-6 lg:px-8">
+        <button class="back-to-plans self-start text-gray-500 hover:text-gray-700 mb-6 flex items-center"><svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Volver</button>
+        <div class="max-w-2xl mx-auto w-full">
+            <h2 class="text-3xl font-bold text-green-800 mb-2 text-center">Verificar Viabilidad</h2>
+            <p class="text-gray-600 mb-6 text-center">Selecciona tu objetivo y busca un alimento para ver si es compatible.</p>
+            <div class="flex flex-col sm:flex-row gap-4 mb-6"><select id="goal-select" class="w-full sm:w-1/3 p-3 rounded-full-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"><option value="weightLoss">Bajar de peso</option><option value="muscleGain">Ganar masa muscular</option><option value="maintenance">Mantención de peso</option></select><div class="relative flex-1"><input id="viability-search-input" type="text" placeholder="Busca un alimento..." class="w-full pl-10 pr-4 py-3 rounded-full-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"><svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div></div>
+            <div id="viability-results" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <!-- Create Plan Page -->
+    <div id="create-plan-page" class="hidden min-h-screen flex flex-col py-10 px-4 sm:px-6 lg:px-8">
+        <button class="back-to-plans self-start text-gray-500 hover:text-gray-700 mb-6 flex items-center"><svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Volver</button>
+        <div class="max-w-4xl mx-auto w-full">
+            <h2 class="text-3xl font-bold text-green-800 mb-6 text-center">Planes de Comida</h2>
+            <div class="flex justify-center mb-6 border-b border-gray-200"><button data-plan="pre-made" class="plan-tab-btn px-6 py-2 font-semibold text-green-700 border-b-2 border-green-700">Planes Básicos</button><button data-plan="custom" class="plan-tab-btn px-6 py-2 font-semibold text-gray-500">Plan Personalizado</button></div>
+            <div id="pre-made-plan-section">
+                <div class="flex justify-center gap-4 mb-6"><button data-premade="weightLoss" class="premade-plan-btn bg-green-600 text-white py-2 px-5 rounded-full font-semibold shadow-md">Bajar de Peso</button><button data-premade="muscleGain" class="premade-plan-btn bg-white text-green-600 py-2 px-5 rounded-full font-semibold shadow-md">Ganar Músculo</button><button data-premade="maintenance" class="premade-plan-btn bg-white text-green-600 py-2 px-5 rounded-full font-semibold shadow-md">Mantención</button></div>
+                <div id="pre-made-plan-display" class="card p-6"></div>
+            </div>
+            <div id="custom-plan-section" class="hidden"><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div class="card p-6"><h3 class="text-xl font-bold text-green-800 mb-4">Desayuno</h3><div class="flex gap-2 mb-4"><input type="text" id="desayuno-input" placeholder="Añadir comida..." class="flex-1 p-2 border rounded-lg"><button data-meal="desayuno" class="add-custom-food-btn bg-green-500 text-white px-4 rounded-lg">+</button></div><ul id="desayuno-list" class="list-disc list-inside space-y-2 text-gray-700"></ul></div><div class="card p-6"><h3 class="text-xl font-bold text-green-800 mb-4">Almuerzo</h3><div class="flex gap-2 mb-4"><input type="text" id="almuerzo-input" placeholder="Añadir comida..." class="flex-1 p-2 border rounded-lg"><button data-meal="almuerzo" class="add-custom-food-btn bg-green-500 text-white px-4 rounded-lg">+</button></div><ul id="almuerzo-list" class="list-disc list-inside space-y-2 text-gray-700"></ul></div><div class="card p-6"><h3 class="text-xl font-bold text-green-800 mb-4">Cena</h3><div class="flex gap-2 mb-4"><input type="text" id="cena-input" placeholder="Añadir comida..." class="flex-1 p-2 border rounded-lg"><button data-meal="cena" class="add-custom-food-btn bg-green-500 text-white px-4 rounded-lg">+</button></div><ul id="cena-list" class="list-disc list-inside space-y-2 text-gray-700"></ul></div><div class="card p-6"><h3 class="text-xl font-bold text-green-800 mb-4">Snack</h3><div class="flex gap-2 mb-4"><input type="text" id="snack-input" placeholder="Añadir comida..." class="flex-1 p-2 border rounded-lg"><button data-meal="snack" class="add-custom-food-btn bg-green-500 text-white px-4 rounded-lg">+</button></div><ul id="snack-list" class="list-disc list-inside space-y-2 text-gray-700"></ul></div></div></div>
+        </div>
+    </div>
+    
+    <!-- Community Page -->
+    <div id="community-page" class="hidden min-h-screen flex flex-col py-10 px-4 sm:px-6 lg:px-8">
+        <button class="back-to-main self-start text-gray-500 hover:text-gray-700 mb-6 flex items-center"><svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Volver</button>
+        <div class="max-w-3xl mx-auto w-full">
+            <h2 class="text-3xl font-bold text-green-800 mb-6 text-center">Comunidad NutriApp</h2>
+            <div id="community-content" class="space-y-8"></div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pages = {
+                welcome: document.getElementById('welcome-page'), loginRegister: document.getElementById('login-register-page'), mainApp: document.getElementById('main-app-page'), foodSearch: document.getElementById('food-search-page'), planSelection: document.getElementById('plan-selection-page'), viabilityCheck: document.getElementById('viability-check-page'), createPlan: document.getElementById('create-plan-page'), community: document.getElementById('community-page'),
+            };
+
+            const mockFoods = [ { id: 1, name: "Manzana", desc: "Una manzana roja, jugosa y fresca.", kcal: 52, protein: 0.3, carbs: 14, fats: 0.2, image: "https://placehold.co/150x150/f87171/FFFFFF?text=Manzana", viability: { weightLoss: 'good', muscleGain: 'normal', maintenance: 'good' } }, { id: 2, name: "Pechuga de Pollo", desc: "100g de pechuga a la plancha.", kcal: 165, protein: 31, carbs: 0, fats: 3.6, image: "https://placehold.co/150x150/fbbf24/FFFFFF?text=Pollo", viability: { weightLoss: 'good', muscleGain: 'good', maintenance: 'good' } }, { id: 3, name: "Brócoli", desc: "Una taza de brócoli cocido.", kcal: 55, protein: 3.7, carbs: 11, fats: 0.6, image: "https://placehold.co/150x150/4ade80/FFFFFF?text=Brócoli", viability: { weightLoss: 'good', muscleGain: 'good', maintenance: 'good' } }, { id: 4, name: "Palta", desc: "Medio aguacate (palta).", kcal: 160, protein: 2, carbs: 9, fats: 15, image: "https://placehold.co/150x150/84cc16/FFFFFF?text=Palta", viability: { weightLoss: 'normal', muscleGain: 'good', maintenance: 'good' } }, { id: 5, name: "Salmón", desc: "100g de salmón al horno.", kcal: 208, protein: 20, carbs: 0, fats: 13, image: "https://placehold.co/150x150/f97316/FFFFFF?text=Salmón", viability: { weightLoss: 'good', muscleGain: 'good', maintenance: 'good' } }, { id: 6, name: "Cazuela de Pollo", desc: "Plato contundente con pollo y verduras.", kcal: 350, protein: 25, carbs: 30, fats: 15, image: "https://placehold.co/150x150/ca8a04/FFFFFF?text=Cazuela", viability: { weightLoss: 'normal', muscleGain: 'good', maintenance: 'good' } }, { id: 7, name: "Pastel de Choclo", desc: "Porción de pastel de pino y choclo.", kcal: 450, protein: 22, carbs: 55, fats: 18, image: "https://placehold.co/150x150/facc15/FFFFFF?text=Pastel+de+Choclo", viability: { weightLoss: 'bad', muscleGain: 'good', maintenance: 'normal' } }, { id: 8, name: "Porotos con Riendas", desc: "Plato tradicional de legumbres y pasta.", kcal: 480, protein: 20, carbs: 85, fats: 5, image: "https://placehold.co/150x150/eab308/FFFFFF?text=Porotos", viability: { weightLoss: 'bad', muscleGain: 'good', maintenance: 'normal' } }, { id: 9, name: "Sopaipillas", desc: "2 unidades de sopaipillas pasadas.", kcal: 250, protein: 4, carbs: 35, fats: 10, image: "https://placehold.co/150x150/f59e0b/FFFFFF?text=Sopaipillas", viability: { weightLoss: 'bad', muscleGain: 'normal', maintenance: 'bad' } }, { id: 10, name: "Arroz Blanco", desc: "Una taza de arroz blanco cocido.", kcal: 204, protein: 4.2, carbs: 45, fats: 0.4, image: "https://placehold.co/150x150/f1f5f9/000000?text=Arroz", viability: { weightLoss: 'normal', muscleGain: 'good', maintenance: 'good' } }, ];
+            const preMadePlans = { weightLoss: [ { meal: 'Desayuno', food: 'Yogurt griego con un puñado de arándanos.' }, { meal: 'Almuerzo', food: 'Ensalada César con pollo a la plancha.' }, { meal: 'Cena', food: 'Salmón al horno con espárragos.' }, { meal: 'Snack', food: 'Una manzana.' }, ], muscleGain: [ { meal: 'Desayuno', food: 'Batido de proteína con avena y plátano.' }, { meal: 'Almuerzo', food: 'Pechuga de pollo con arroz integral y brócoli.' }, { meal: 'Cena', food: 'Carne magra con papas cocidas y ensalada.' }, { meal: 'Snack', food: 'Un puñado de almendras y un huevo duro.' }, ], maintenance: [ { meal: 'Desayuno', food: 'Tostadas integrales con palta y huevo.' }, { meal: 'Almuerzo', food: 'Cazuela de pollo.' }, { meal: 'Cena', food: 'Lentejas con verduras salteadas.' }, { meal: 'Snack', food: 'Frutas de la estación.' }, ] };
+            const communityPosts = [ { id: 1, category: 'Recetas', title: 'Mi receta de Lentejas Caseras', content: '¡Hola a todos! Quería compartir mi receta secreta para las lentejas más sabrosas. El truco está en añadir un toque de comino y pimentón ahumado. ¡Pruébenlo y me cuentan!', comments: [{ user: 'Ana', text: '¡Qué buena idea! Lo voy a probar este fin de semana.' }, { user: 'Carlos', text: 'Yo además le pongo un poco de zapallo, quedan más cremosas.' }] }, { id: 2, category: 'Noticias', title: 'Nuevo estudio sobre los beneficios del Omega-3', content: 'Un reciente estudio publicado en la revista "Nutrition Today" confirma que el consumo regular de Omega-3, presente en pescados como el salmón, mejora la función cognitiva. Se recomienda consumir pescado graso al menos dos veces por semana.', comments: [{ user: 'Sofia', text: '¡Justo hoy comí salmón! Qué bueno saberlo.' }] }, { id: 3, category: 'Rutinas', title: '¿Qué comer antes de entrenar?', content: 'Para tener energía durante el entrenamiento, lo ideal es consumir carbohidratos de lenta absorción como avena o un plátano unos 45 minutos antes. ¿Ustedes qué comen?', comments: [{ user: 'Martin', text: 'A mí me funciona súper bien un plátano con mantequilla de maní.' }, { user: 'Javiera', text: 'Yo prefiero algo más ligero, como un puñado de pasas.' }] }, ];
+
+            // --- PAGE NAVIGATION ---
+            const showPage = (pageKey) => {
+                Object.values(pages).forEach(page => page.classList.add('hidden'));
+                pages[pageKey].classList.remove('hidden');
+                if (pageKey === 'mainApp') {
+                    generateDailySuggestions();
+                }
+            };
+
+            document.getElementById('get-started-btn').addEventListener('click', () => showPage('loginRegister'));
+            document.getElementById('login-btn').addEventListener('click', () => showPage('loginRegister'));
+            document.getElementById('back-to-welcome-btn').addEventListener('click', () => showPage('welcome'));
+            document.getElementById('login-form').addEventListener('submit', (e) => { e.preventDefault(); showPage('mainApp'); });
+            document.getElementById('logout-btn').addEventListener('click', () => showPage('welcome'));
+            
+            document.querySelectorAll('.back-to-main').forEach(btn => btn.addEventListener('click', () => showPage('mainApp')));
+            document.querySelectorAll('.back-to-plans').forEach(btn => btn.addEventListener('click', () => showPage('planSelection')));
+
+            // Header buttons
+            document.getElementById('food-search-btn-header').addEventListener('click', () => showPage('foodSearch'));
+            document.getElementById('plans-btn-header').addEventListener('click', () => showPage('planSelection'));
+            document.getElementById('community-btn-header').addEventListener('click', () => { renderCommunityPosts(); showPage('community'); });
+
+            // Plan selection cards
+            document.getElementById('viability-check-card').addEventListener('click', () => showPage('viabilityCheck'));
+            document.getElementById('create-plan-card').addEventListener('click', () => { displayPreMadePlan('weightLoss'); showPage('createPlan'); });
+
+
+            // --- DAILY SUGGESTIONS & SEASONAL RECIPE ---
+            const generateDailySuggestions = () => {
+                const container = document.getElementById('daily-suggestions-container');
+                const month = new Date().getMonth(); 
+                let season = 'primavera';
+                if (month >= 5 && month <= 7) season = 'invierno'; 
+                if (month >= 8 && month <= 10) season = 'primavera';
+                if (month >= 11 || month <= 1) season = 'verano'; 
+                if (month >= 2 && month <= 4) season = 'otoño';
+
+                let seasonalRecipe;
+                if (season === 'invierno') {
+                    seasonalRecipe = { title: 'Cazuela de Pollo', description: 'Nada como una cazuela caliente para los días de frío. Un plato completo, nutritivo y lleno de sabor tradicional chileno.', image: 'https://placehold.co/600x300/ca8a04/FFFFFF?text=Cazuela+de+Pollo', ingredients: ['4 presas de pollo', '1 cebolla en plumas', '1 pimentón rojo en tiras', '2 zanahorias en rodajas', '4 papas grandes', '4 trozos de zapallo', '1 choclo en trozos', '1/4 taza de arroz', 'Caldo de ave, sal, pimienta y orégano', 'Cilantro fresco picado'], instructions: [ 'En una olla grande, sellar el pollo por ambos lados. Retirar y reservar.', 'En la misma olla, sofreír la cebolla, pimentón y zanahoria.', 'Volver a poner el pollo en la olla. Agregar las papas, zapallo y choclo.', 'Cubrir con caldo de ave caliente. Condimentar con sal, pimienta y orégano.', 'Cuando hierva, agregar el arroz. Bajar el fuego y cocinar por 20-25 minutos o hasta que todo esté cocido.', 'Servir caliente, espolvoreando cilantro fresco picado.' ] };
+                } else {
+                     seasonalRecipe = { title: 'Ensalada Chilena', description: 'Fresca, simple y deliciosa. La ensalada chilena es el acompañamiento perfecto para cualquier plato en días más cálidos.', image: 'https://placehold.co/600x300/ef4444/FFFFFF?text=Ensalada+Chilena', ingredients: ['2 tomates grandes y maduros', '1 cebolla blanca o morada', 'Cilantro fresco', 'Aceite de oliva', 'Jugo de limón', 'Sal'], instructions: [ 'Cortar los tomates en rodajas finas o gajos.', 'Picar la cebolla en pluma y amortiguar en agua con sal por 10 minutos, luego estilar bien.', 'Picar el cilantro finamente.', 'Mezclar todos los ingredientes en un bol.', 'Aliñar con aceite, limón y sal a gusto justo antes de servir.' ] };
+                }
+                
+                const otherSuggestions = [ { title: 'Desayuno', text: 'Avena con frutas y un toque de canela.', icon: '🥣' }, { title: 'Almuerzo', text: 'Lentejas con arroz y huevo duro.', icon: '🍲' }, { title: 'Once', text: 'Pan marraqueta con palta y té.', icon: '🥑' }, { title: 'Snack', text: 'Un puñado de nueces o almendras.', icon: '🌰' } ];
+                
+                container.innerHTML = `<div><h3 class="text-2xl font-bold text-green-800 mb-4">Sugerencia de Temporada: ${season.charAt(0).toUpperCase() + season.slice(1)}</h3><div class="card p-6"><img src="${seasonalRecipe.image}" alt="${seasonalRecipe.title}" class="w-full h-48 object-cover rounded-lg mb-4"><h4 class="text-xl font-bold text-green-700">${seasonalRecipe.title}</h4><p class="text-gray-600 mb-4">${seasonalRecipe.description}</p><div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm"><div><h5 class="font-semibold mb-2">Ingredientes:</h5><ul class="list-disc list-inside space-y-1 text-gray-700">${seasonalRecipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul></div><div><h5 class="font-semibold mb-2">Preparación:</h5><ol class="list-decimal list-inside space-y-2 text-gray-700">${seasonalRecipe.instructions.map(i => `<li>${i}</li>`).join('')}</ol></div></div></div></div><div><h3 class="text-2xl font-bold text-green-800 mb-4">Ideas para Hoy</h3><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">${otherSuggestions.map(sug => `<div class="card p-6 flex flex-col items-center text-center"><span class="text-4xl mb-3">${sug.icon}</span><h4 class="font-bold text-green-700">${sug.title}</h4><p class="text-sm text-gray-500">${sug.text}</p></div>`).join('')}</div></div>`;
+            };
+
+            // --- MAIN PAGE SEARCH FORM ---
+            const mainPageSearchForm = document.getElementById('main-page-search-form');
+            const mainPageSearchInput = document.getElementById('main-page-search-input');
+            mainPageSearchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const query = mainPageSearchInput.value.trim();
+                if (query) {
+                    showPage('foodSearch');
+                    const foodSearchInput = document.getElementById('food-search-input');
+                    foodSearchInput.value = query;
+                    foodSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    mainPageSearchInput.value = '';
+                }
+            });
+
+            // --- FOOD SEARCH FUNCTIONALITY ---
+            const foodSearchInput = document.getElementById('food-search-input');
+            const searchResultsContainer = document.getElementById('search-results');
+            foodSearchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                searchResultsContainer.innerHTML = '';
+                if (query.length > 0) {
+                    const filteredFoods = mockFoods.filter(food => food.name.toLowerCase().includes(query));
+                    if(filteredFoods.length > 0) { filteredFoods.forEach(food => searchResultsContainer.appendChild(createFoodCard(food))); }
+                    else { searchResultsContainer.innerHTML = '<p class="text-gray-500 text-center col-span-2">No se encontraron resultados.</p>'; }
+                }
+            });
+            const createFoodCard = (food) => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'p-4', 'flex', 'items-center', 'space-x-4');
+                card.innerHTML = `<img src="${food.image}" alt="${food.name}" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg shadow-md"><div class="flex-1"><h4 class="font-bold text-lg text-green-800">${food.name}</h4><p class="text-sm text-gray-500 mb-2">${food.desc}</p><div class="text-xs grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1 text-gray-600 font-medium"><span><strong class="text-green-700">Cal:</strong> ${food.kcal}</span><span><strong class="text-green-700">Prot:</strong> ${food.protein}g</span><span><strong class="text-green-700">Carbs:</strong> ${food.carbs}g</span><span><strong class="text-green-700">Grasas:</strong> ${food.fats}g</span></div></div>`;
+                return card;
+            };
+            
+            // --- VIABILITY CHECK FUNCTIONALITY ---
+            const viabilitySearchInput = document.getElementById('viability-search-input');
+            const goalSelect = document.getElementById('goal-select');
+            const viabilityResultsContainer = document.getElementById('viability-results');
+            const handleViabilitySearch = () => {
+                const query = viabilitySearchInput.value.toLowerCase(); const goal = goalSelect.value;
+                viabilityResultsContainer.innerHTML = '';
+                if (query.length > 0) {
+                    const filteredFoods = mockFoods.filter(food => food.name.toLowerCase().includes(query));
+                    if(filteredFoods.length > 0) {
+                         filteredFoods.forEach(food => {
+                            const viability = food.viability[goal];
+                            const viabilityInfo = { good: { label: 'Bueno', color: 'bg-green-500', width: 'w-full' }, normal: { label: 'Normal', color: 'bg-yellow-500', width: 'w-2/3' }, bad: { label: 'Malo', color: 'bg-red-500', width: 'w-1/3' }, }[viability];
+                            const card = document.createElement('div'); card.classList.add('card', 'p-4');
+                            card.innerHTML = `<div class="flex justify-between items-center mb-2"><h4 class="font-bold text-lg text-green-800">${food.name}</h4><span class="font-semibold px-3 py-1 text-sm rounded-full text-white ${viabilityInfo.color}">${viabilityInfo.label}</span></div><div class="w-full bg-gray-200 rounded-full h-2.5"><div class="${viabilityInfo.color} h-2.5 rounded-full ${viabilityInfo.width} transition-all duration-500"></div></div>`;
+                            viabilityResultsContainer.appendChild(card);
+                        });
+                    } else { viabilityResultsContainer.innerHTML = '<p class="text-gray-500 text-center">No se encontraron resultados.</p>'; }
+                }
+            };
+            viabilitySearchInput.addEventListener('input', handleViabilitySearch);
+            goalSelect.addEventListener('change', handleViabilitySearch);
+            
+            // --- CREATE PLAN FUNCTIONALITY ---
+            const planTabButtons = document.querySelectorAll('.plan-tab-btn');
+            const preMadePlanSection = document.getElementById('pre-made-plan-section'); const customPlanSection = document.getElementById('custom-plan-section'); const preMadePlanDisplay = document.getElementById('pre-made-plan-display'); const preMadePlanButtons = document.querySelectorAll('.premade-plan-btn');
+            planTabButtons.forEach(btn => { btn.addEventListener('click', () => { const targetPlan = btn.dataset.plan; planTabButtons.forEach(b => { b.classList.remove('text-green-700', 'border-green-700'); b.classList.add('text-gray-500'); }); btn.classList.add('text-green-700', 'border-green-700'); preMadePlanSection.classList.toggle('hidden', targetPlan !== 'pre-made'); customPlanSection.classList.toggle('hidden', targetPlan !== 'custom'); }); });
+            const displayPreMadePlan = (planKey) => { const planData = preMadePlans[planKey]; preMadePlanDisplay.innerHTML = planData.map(item => `<div class="mb-4"><h4 class="font-bold text-green-700">${item.meal}</h4><p class="text-gray-600">${item.food}</p></div>`).join(''); };
+            preMadePlanButtons.forEach(btn => { btn.addEventListener('click', () => { preMadePlanButtons.forEach(b => { b.classList.remove('bg-green-600', 'text-white'); b.classList.add('bg-white', 'text-green-600'); }); btn.classList.add('bg-green-600', 'text-white'); displayPreMadePlan(btn.dataset.premade); }); });
+            document.querySelectorAll('.add-custom-food-btn').forEach(btn => { btn.addEventListener('click', () => { const meal = btn.dataset.meal; const input = document.getElementById(`${meal}-input`); const list = document.getElementById(`${meal}-list`); if (input.value.trim() !== '') { const li = document.createElement('li'); li.textContent = input.value; list.appendChild(li); input.value = ''; } }); });
+
+            // --- COMMUNITY FUNCTIONALITY ---
+            const communityContent = document.getElementById('community-content');
+            const renderCommunityPosts = () => {
+                communityContent.innerHTML = communityPosts.map(post => `<div class="card p-6"><div class="flex justify-between items-start mb-2"><h3 class="text-2xl font-bold text-green-800">${post.title}</h3><span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">${post.category}</span></div><p class="text-gray-600 mb-4">${post.content}</p><div class="border-t border-gray-200 pt-4"><h4 class="font-semibold mb-3 text-gray-700">Comentarios</h4><div id="comments-for-post-${post.id}" class="comments-list max-h-48 overflow-y-auto space-y-3 pr-2">${post.comments.map(comment => `<div class="bg-gray-50 p-3 rounded-lg"><p class="font-bold text-sm text-green-700">${comment.user}</p><p class="text-sm text-gray-800">${comment.text}</p></div>`).join('')}</div><form class="mt-4 flex gap-2" data-post-id="${post.id}"><textarea placeholder="Escribe tu comentario..." class="flex-1 p-2 border rounded-lg text-sm focus:ring-green-500 focus:border-green-500"></textarea><button type="submit" class="bg-green-600 text-white font-semibold px-4 rounded-lg hover:bg-green-700">Comentar</button></form></div></div>`).join('');
+                document.querySelectorAll('#community-content form').forEach(form => { form.addEventListener('submit', (e) => { e.preventDefault(); const postId = e.target.dataset.postId; const textarea = e.target.querySelector('textarea'); const commentText = textarea.value.trim(); if (commentText) { const commentsList = document.getElementById(`comments-for-post-${postId}`); const newCommentDiv = document.createElement('div'); newCommentDiv.classList.add('bg-green-50', 'p-3', 'rounded-lg'); newCommentDiv.innerHTML = `<p class="font-bold text-sm text-green-700">Tú</p><p class="text-sm text-gray-800">${commentText}</p>`; commentsList.appendChild(newCommentDiv); commentsList.scrollTop = commentsList.scrollHeight; textarea.value = ''; } }); });
+            };
+
+            // Initial setup
+            displayPreMadePlan('weightLoss');
+        });
+    </script>
+</body>
+</html>
+
