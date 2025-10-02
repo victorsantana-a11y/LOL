@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💻 Su Escuela Digital Segura - Huechuraba</title>
+    <title>💻 Su Práctica Digital Segura - Huechuraba</title>
     <style>
         /* PRINCIPIO: Estética y Diseño Minimalista + Visibilidad */
         body {
             font-family: 'Verdana', 'Arial', sans-serif;
-            font-size: 1.5em; /* Tamaño base grande */
+            font-size: 1.5em; /* Tamaño base muy grande */
             line-height: 1.6;
             margin: 40px;
             background-color: #e6e6fa; /* Lavanda muy claro y suave */
@@ -42,9 +42,9 @@
             border-radius: 8px;
             background-color: #f7f7ff; /* Fondo sutil para las áreas de práctica */
         }
-        /* PRINCIPIO: Libertad y Control para el Usuario + Prevención de Errores */
+        /* PRINCIPIO: Prevención de Errores */
         .consejo-seguridad {
-            background-color: #ffcccb; /* Fondo rojo/rosa para advertencias de seguridad y prevención */
+            background-color: #ffcccb; /* Fondo rojo/rosa para advertencias de seguridad */
             color: #900000;
             padding: 15px;
             border-radius: 5px;
@@ -53,7 +53,7 @@
             margin-bottom: 20px;
         }
         button {
-            background-color: #3cb371; /* Verde esmeralda, un color de "éxito" */
+            background-color: #3cb371; /* Verde esmeralda, color de "éxito" */
             color: white;
             border: none;
             padding: 15px 25px;
@@ -81,8 +81,8 @@
             padding: 3px 8px;
             border-radius: 3px;
             border: 1px solid #4b0082;
+            white-space: nowrap; /* Evita que el nombre de la tecla se rompa */
         }
-        /* Estilos para el texto de práctica */
         #texto-ingresado {
             border: 2px solid #4b0082;
             padding: 15px;
@@ -91,7 +91,7 @@
             background-color: white;
             font-size: 1.5em;
             width: 100%;
-            box-sizing: border-box; /* Incluye padding en el ancho */
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -114,8 +114,8 @@
                 <p>👉 **Clic (Botón Izquierdo):** Es el "Toque" o "Tocar" del celular. Sirve para **seleccionar** o **abrir** una opción.</p>
             </div>
             
-            <h3>Ejercicio de Precisión</h3>
-            <p>El movimiento se aprende con práctica. Intente mover el ratón despacio hasta el botón y haga **un solo clic** firme. Si le tiembla la mano, puede apoyar el talón de la palma en la mesa.</p>
+            <h3>Ejercicio de Precisión (Control del Usuario)</h3>
+            <p>El movimiento se aprende con práctica. Intente mover el ratón despacio hasta el botón y haga **un solo clic** firme.</p>
             
             <button id="boton-raton" onclick="mostrarMensajeRaton()">HAGA CLIC AQUÍ para confirmar su control.</button>
             
@@ -124,60 +124,58 @@
             </p>
         </div>
 
-        ---
-        
+        <hr style="border: 1px solid #ccc; margin: 40px 0;">
+
         <h2>⌨️ 2. EXPLICACIÓN y PRÁCTICA del Teclado</h2>
         
         <div class="seccion-practica">
             <h3>¿Qué hace el Teclado?</h3>
-            <p>El teclado es su máquina de escribir digital. Tiene tres teclas que usará **todo el tiempo** para escribir y corregir:</p>
-            
-            <ol>
-                <li>La tecla para **DEJAR ESPACIOS** (La **Barra Espaciadora**).</li>
-                <li>La tecla para **BAJAR de línea** o **ACEPTAR** (<span class="tecla-importante">ENTER / INTRO</span>).</li>
-                <li>La tecla para **ARREGLAR ERRORES** (<span class="tecla-importante">BORRAR / BACKSPACE</span>).</li>
-            </ol>
-            
-            <h3>📌 ¿Dónde están las teclas clave? (¡Mire su teclado!)</h3>
+            <p>El teclado es su máquina de escribir digital. Conocer la ubicación de solo **tres teclas** le dará gran seguridad para empezar a escribir:</p>
             
             <div class="explicacion-clave">
                 
-                <h4>1. La Tecla para Continuar: <span class="tecla-importante">ENTER</span> o <span class="tecla-importante">INTRO</span></h4>
+                <h4>1. La Tecla para Corregir: <span class="tecla-importante">BORRAR</span> o <span class="tecla-importante">BACKSPACE</span></h4>
                 <ul>
-                    <li>**Ubicación:** Está en el **lado derecho** del teclado, cerca de las letras. Suele ser una de las teclas **más grandes**.</li>
-                    <li>**Uso:** Sirve para dar un **salto de línea** (empezar un nuevo párrafo) o para **aceptar** algo en una página web.</li>
+                    <li>**Ubicación:** Está justo **encima de la tecla ENTER**, en el lado derecho. Es una tecla **larga** con una **flecha gorda hacia la izquierda** (←).</li>
+                    <li>**Uso (Prevención de Errores):** ¡No tenga miedo! Presiónela para **eliminar** la última letra que escribió y **arreglar** cualquier error.</li>
                 </ul>
 
-                <h4>2. La Tecla para Corregir: <span class="tecla-importante">BORRAR</span> o <span class="tecla-importante">BACKSPACE</span></h4>
+                <h4>2. La Tecla para Continuar: <span class="tecla-importante">ENTER</span> o <span class="tecla-importante">INTRO</span></h4>
                 <ul>
-                    <li>**Ubicación:** Está justo **encima de la tecla ENTER**. Es una tecla **larga** con una **flecha gorda que apunta hacia la izquierda** (←). </li>
-                    <li>**Uso:** ¡No tenga miedo! Presiónela para **eliminar** la última letra que escribió. Le da **control** total para arreglar errores.</li>
+                    <li>**Ubicación:** Generalmente es la tecla más grande y gruesa en el **lado derecho**, justo debajo de <span class="tecla-importante">Borrar</span>.</li>
+                    <li>**Uso:** Sirve para dar un **salto de línea** (empezar un nuevo párrafo) o para **ACEPTAR** una opción en un programa.</li>
+                </ul>
+
+                <h4>3. El Espacio: <span class="tecla-importante">BARRA ESPACIADORA</span></h4>
+                <ul>
+                    <li>**Ubicación:** Es la tecla **más larga de todo el teclado**, ubicada en la parte inferior.</li>
+                    <li>**Uso:** Sirve para dejar un **espacio** entre las palabras.</li>
                 </ul>
             </div>
 
             <h3>Cuidado con las Mayúsculas (El "Grito")</h3>
-            <p>Cuando escribe **TODO ASÍ**, es porque la tecla <span class="tecla-importante">Bloq Mayús</span> (o Caps Lock) está **activada**.</p>
+            <p>Si escribe **TODO ASÍ**, es porque la tecla <span class="tecla-importante">Bloq Mayús</span> (o Caps Lock) está **activada**.</p>
             <p>📍 **SOLUCIÓN:** Presione esa tecla **solo una vez**. Fíjese en la **luz** de su teclado. Si la luz está **APAGADA**, escribirá normal.</p>
 
             <h3>Ejercicio de Teclado y Bloq Mayús</h3>
-            <p>✅ **Pruebe aquí abajo:** Escriba su nombre. Use la tecla **Borrar** si se equivoca. Luego, active y desactive el **Bloq Mayús** para ver la diferencia.</p>
+            <p>✅ **Pruebe aquí:** Escriba su nombre. Use la tecla **Borrar** si se equivoca. Luego, active y desactive el **Bloq Mayús** para ver la diferencia.</p>
             
             <textarea id="texto-ingresado" placeholder="Escriba aquí para practicar.
 ¡Use la tecla BORRAR si se equivoca!
 Pruebe la tecla Bloq Mayús para escribir con mayúsculas." rows="6"></textarea>
         </div>
 
-        ---
+        <hr style="border: 1px solid #ccc; margin: 40px 0;">
 
         <h2>👓 3. Ayuda para la Vista (Zoom)</h2>
         <div class="seccion-practica">
             <p>Este es un truco de **Libertad y Control** sobre lo que ve en cualquier página web:</p>
             
-            <p>Si la letra es muy pequeña, usted puede hacerla **más grande** de inmediato (¡esto funciona en casi todos los computadores!):</p>
+            <p>Si la letra es muy pequeña, usted puede hacerla **más grande** de inmediato:</p>
             
             <ol>
                 <li>Mantenga presionada la tecla **CTRL** (Control, que está a la izquierda).</li>
-                <li>Sin soltar **CTRL**, presione la tecla **Más/Suma** (<span class="tecla-importante">+</span>) varias veces para aumentar el tamaño.</li>
+                <li>Sin soltar **CTRL**, presione la tecla **Más/Suma** (<span class="tecla-importante">+</span>) varias veces.</li>
             </ol>
             
             <p>Para volver al tamaño normal, presione **CTRL** y la tecla del número **CERO** (<span class="tecla-importante">0</span>).</p>
@@ -187,11 +185,11 @@ Pruebe la tecla Bloq Mayús para escribir con mayúsculas." rows="6"></textarea>
     </div>
 
     <script>
-        // Función simple para el botón de práctica del ratón
+        // Función simple de JavaScript para el botón de práctica del ratón
         function mostrarMensajeRaton() {
             // Muestra el mensaje de éxito
             document.getElementById('mensaje-raton').style.display = 'block';
-            // Oculta el botón para evitar que sigan presionándolo (para centrar la atención en el éxito)
+            // Oculta el botón para centrar la atención en el éxito del clic
             document.getElementById('boton-raton').style.display = 'none';
         }
     </script>
